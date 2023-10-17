@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:video_compressor_media_codec/compress_type.dart';
-
+import 'package:path/path.dart' as path;
 import 'video_compressor_media_codec_platform_interface.dart';
 
 /// An implementation of [VideoCompressorMediaCodecPlatform] that uses method channels.
@@ -16,10 +16,12 @@ class MethodChannelVideoCompressorMediaCodec extends VideoCompressorMediaCodecPl
   Future<String?> compressVideo(String filePath, CompressType compressType) async {
     final tempDir = await getTemporaryDirectory();
     String tempPath = tempDir.path;
+    String fileName = path.basename(filePath);
+
     final args = {
       'filePath': filePath,
       'compressType': compressType.name,
-      'outputFilePath': tempPath,
+      'outputFilePath': '$tempPath/$fileName',
     };
     final version = await methodChannel.invokeMethod<String>('compressVideo', args);
     return version;
