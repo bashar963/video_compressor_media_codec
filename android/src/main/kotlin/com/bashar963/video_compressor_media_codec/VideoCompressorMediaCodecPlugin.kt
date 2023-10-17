@@ -1,13 +1,12 @@
 package com.bashar963.video_compressor_media_codec
 
 
-import com.iamkdblue.videocompressor.VideoCompress
+import com.bashar963.video_compressor_media_codec.videocompressor.VideoCompress
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.plugin.common.EventChannel
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
-import io.flutter.plugin.common.MethodChannel.Result
 import kotlinx.coroutines.runBlocking
 
 

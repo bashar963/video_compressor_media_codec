@@ -1,4 +1,4 @@
-package com.iamkdblue.videocompressor;
+package com.bashar963.video_compressor_media_codec.videocompressor;
 
 import android.annotation.TargetApi;
 import android.media.MediaCodec;
