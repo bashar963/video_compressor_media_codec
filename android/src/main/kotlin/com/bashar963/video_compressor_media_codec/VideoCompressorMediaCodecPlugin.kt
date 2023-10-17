@@ -60,8 +60,6 @@ class VideoCompressorMediaCodecPlugin: FlutterPlugin, MethodCallHandler, EventCh
               result.error("Compress Type Error", "Compress Type Error", "Compress Type Error")
           }
       }
-
-      result.success("Android ${android.os.Build.VERSION.RELEASE}")
     } else {
       result.notImplemented()
     }
