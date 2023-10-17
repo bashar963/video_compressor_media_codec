@@ -1,0 +1,31 @@
+import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:video_compressor_media_codec/compress_type.dart';
+
+import 'video_compressor_media_codec_platform_interface.dart';
+
+/// An implementation of [VideoCompressorMediaCodecPlatform] that uses method channels.
+class MethodChannelVideoCompressorMediaCodec extends VideoCompressorMediaCodecPlatform {
+  /// The method channel used to interact with the native platform.
+  @visibleForTesting
+  final methodChannel = const MethodChannel('video_compressor_media_codec');
+  final EventChannel _progressEventChannel = const EventChannel('video_compressor_media_codec/compressVideoProgress');
+
+  @override
+  Future<String?> compressVideo(String filePath, CompressType compressType) async {
+    final tempDir = await getTemporaryDirectory();
+    String tempPath = tempDir.path;
+    final args = {
+      'filePath': filePath,
+      'compressType': compressType.name,
+      'outputFilePath': tempPath,
+    };
+    final version = await methodChannel.invokeMethod<String>('compressVideo', args);
+    return version;
+  }
+
+  @override
+  Stream<double> compressVideoProgress() =>
+      _progressEventChannel.receiveBroadcastStream().map((event) => event as double);
+}

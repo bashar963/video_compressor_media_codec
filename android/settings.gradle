@@ -1,0 +1,2 @@
+include ':compressvideo'
+rootProject.name = 'video_compressor_media_codec'
