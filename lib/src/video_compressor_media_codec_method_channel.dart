@@ -1,9 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:video_compressor_media_codec/compress_type.dart';
+import 'package:video_compressor_media_codec/src/compress_type.dart';
 import 'package:path/path.dart' as path;
-import 'video_compressor_media_codec_platform_interface.dart';
+import 'package:video_compressor_media_codec/src/video_compressor_media_codec_platform_interface.dart';
 
 /// An implementation of [VideoCompressorMediaCodecPlatform] that uses method channels.
 class MethodChannelVideoCompressorMediaCodec extends VideoCompressorMediaCodecPlatform {
@@ -25,6 +25,12 @@ class MethodChannelVideoCompressorMediaCodec extends VideoCompressorMediaCodecPl
     };
     final version = await methodChannel.invokeMethod<String>('compressVideo', args);
     return version;
+  }
+
+  @override
+  Future<bool> cancelCompressVideo() async {
+    final cancelled = await methodChannel.invokeMethod<bool>('cancelVideoCompressTask');
+    return cancelled ?? false;
   }
 
   @override

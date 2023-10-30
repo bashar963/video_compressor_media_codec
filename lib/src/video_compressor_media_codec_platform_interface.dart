@@ -1,7 +1,6 @@
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
-import 'package:video_compressor_media_codec/compress_type.dart';
-
-import 'video_compressor_media_codec_method_channel.dart';
+import 'package:video_compressor_media_codec/src/compress_type.dart';
+import 'package:video_compressor_media_codec/src/video_compressor_media_codec_method_channel.dart';
 
 abstract class VideoCompressorMediaCodecPlatform extends PlatformInterface {
   /// Constructs a VideoCompressorMediaCodecPlatform.
@@ -26,6 +25,10 @@ abstract class VideoCompressorMediaCodecPlatform extends PlatformInterface {
 
   Future<String?> compressVideo(String filePath, CompressType compressType) {
     throw UnimplementedError('compressVideo() has not been implemented.');
+  }
+
+  Future<bool> cancelCompressVideo() {
+    throw UnimplementedError('cancelCompressVideo() has not been implemented.');
   }
 
   Stream<double> compressVideoProgress() {

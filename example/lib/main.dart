@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 
 import 'package:flutter/services.dart';
-import 'package:video_compressor_media_codec/compress_type.dart';
 import 'package:video_compressor_media_codec/video_compressor_media_codec.dart';
 
 void main() {

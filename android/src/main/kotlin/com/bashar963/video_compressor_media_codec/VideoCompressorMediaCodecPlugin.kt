@@ -20,6 +20,7 @@ class VideoCompressorMediaCodecPlugin: FlutterPlugin, MethodCallHandler, EventCh
   private lateinit var channel : MethodChannel
   private lateinit var eventChannel : EventChannel
   private var mEventSink: EventChannel.EventSink? = null
+  private var videoCompressTask:  VideoCompress.VideoCompressTask? = null
 
 
   override fun onAttachedToEngine(flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
@@ -58,6 +59,12 @@ class VideoCompressorMediaCodecPlugin: FlutterPlugin, MethodCallHandler, EventCh
               result.error("Compress Type Error", "Compress Type Error", "Compress Type Error")
           }
       }
+    } else if(call.method == "cancelVideoCompressTask"){
+        if(videoCompressTask!=null){
+            result.success( videoCompressTask!!.cancel(true))
+        }else{
+            result.success(false)
+        }
     } else {
       result.notImplemented()
     }
@@ -65,7 +72,7 @@ class VideoCompressorMediaCodecPlugin: FlutterPlugin, MethodCallHandler, EventCh
 
   private fun highCompress(filePath: String, outputFilePath:String, result: Result) {
 
-      VideoCompress.compressVideoHigh(filePath, outputFilePath, object : VideoCompress.CompressListener {
+      videoCompressTask=  VideoCompress.compressVideoHigh(filePath, outputFilePath, object : VideoCompress.CompressListener {
         override fun onStart() {}
         override fun onSuccess(compressVideoPath: String) {
           result.success(compressVideoPath)
@@ -83,7 +90,7 @@ class VideoCompressorMediaCodecPlugin: FlutterPlugin, MethodCallHandler, EventCh
 
   private fun mediumCompress(filePath: String,outputFilePath:String, result: Result) {
 
-      VideoCompress.compressVideoMedium(filePath, outputFilePath, object : VideoCompress.CompressListener {
+      videoCompressTask=  VideoCompress.compressVideoMedium(filePath, outputFilePath, object : VideoCompress.CompressListener {
         override fun onStart() {}
         override fun onSuccess(compressVideoPath: String) {
           result.success(compressVideoPath)
@@ -102,7 +109,7 @@ class VideoCompressorMediaCodecPlugin: FlutterPlugin, MethodCallHandler, EventCh
 
   private fun lowCompress(filePath: String,outputFilePath:String, result: Result) {
 
-      VideoCompress.compressVideoLow(filePath, outputFilePath, object : VideoCompress.CompressListener {
+      videoCompressTask= VideoCompress.compressVideoLow(filePath, outputFilePath, object : VideoCompress.CompressListener {
         override fun onStart() {}
         override fun onSuccess(compressVideoPath: String) {
           result.success(compressVideoPath)

@@ -2,22 +2,27 @@ package com.bashar963.video_compressor_media_codec.videocompressor;
 
 import android.os.AsyncTask;
 
+import androidx.annotation.NonNull;
+
 
 public class VideoCompress {
     private static final String TAG = VideoCompress.class.getSimpleName();
 
+    @NonNull
     public static VideoCompressTask compressVideoHigh(String srcPath, String destPath, CompressListener listener) {
         VideoCompressTask task = new VideoCompressTask(listener, VideoController.COMPRESS_QUALITY_HIGH);
         task.execute(srcPath, destPath);
         return task;
     }
 
+    @NonNull
     public static VideoCompressTask compressVideoMedium(String srcPath, String destPath, CompressListener listener) {
         VideoCompressTask task = new VideoCompressTask(listener, VideoController.COMPRESS_QUALITY_MEDIUM);
         task.execute(srcPath, destPath);
         return task;
     }
 
+    @NonNull
     public static VideoCompressTask compressVideoLow(String srcPath, String destPath, CompressListener listener) {
         VideoCompressTask task =  new VideoCompressTask(listener, VideoController.COMPRESS_QUALITY_LOW);
         task.execute(srcPath, destPath);
